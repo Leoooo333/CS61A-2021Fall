@@ -287,7 +287,12 @@ def make_averaged(original_function, trials_count=1000):
     3.0
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    def average(*args):
+        sum = 0
+        for i in range(0, trials_count):
+            sum += original_function(*args)
+        return sum / trials_count
+    return average
     # END PROBLEM 8
 
 
@@ -301,7 +306,15 @@ def max_scoring_num_rolls(dice=six_sided, trials_count=1000):
     1
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    mean = make_averaged(roll_dice, trials_count)
+    max_value = mean(1, dice)
+    best_rolls = 1
+    for i in range(2, 11):
+        cur = mean(i, dice)
+        if cur > max_value :
+            max_value = cur
+            best_rolls = i
+    return best_rolls
     # END PROBLEM 9
 
 
@@ -342,7 +355,10 @@ def picky_piggy_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     returns NUM_ROLLS otherwise.
     """
     # BEGIN PROBLEM 10
-    return 6  # Remove this line once implemented.
+    if picky_piggy(opponent_score) >= cutoff:
+        return 0
+    else:
+        return num_rolls
     # END PROBLEM 10
 
 
@@ -352,7 +368,11 @@ def hog_pile_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     Otherwise, it returns NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 6  # Remove this line once implemented.
+    if 0 == picky_piggy_strategy(score, opponent_score, cutoff, num_rolls)\
+            or 0 != hog_pile(score + picky_piggy(opponent_score), opponent_score):
+        return 0
+    else:
+        return num_rolls
     # END PROBLEM 11
 
 
@@ -362,7 +382,7 @@ def final_strategy(score, opponent_score):
     *** YOUR DESCRIPTION HERE ***
     """
     # BEGIN PROBLEM 12
-    return 6  # Remove this line once implemented.
+    return 6
     # END PROBLEM 12
 
 ##########################
