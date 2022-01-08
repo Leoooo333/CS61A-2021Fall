@@ -1,4 +1,5 @@
 """Typing test implementation"""
+import math
 
 from utils import lower, split, remove_punctuation, lines_from_file
 from ucb import main, interact, trace
@@ -30,7 +31,11 @@ def choose(paragraphs, select, k):
     ''
     """
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
+    result = [item for item in paragraphs if select(item)]
+    if k >= len(result):
+        return ''
+    else:
+        return result[k]
     # END PROBLEM 1
 
 
@@ -49,7 +54,13 @@ def about(topic):
     """
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    def select(paragragh):
+        for word in split(remove_punctuation(lower(paragragh))):
+            for top in topic:
+                if word == top:
+                    return True
+        return False
+    return select
     # END PROBLEM 2
 
 
@@ -79,7 +90,18 @@ def accuracy(typed, reference):
     typed_words = split(typed)
     reference_words = split(reference)
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    if len(typed_words) == 0 and len(reference_words) == 0:
+        return 100.0
+    elif len(typed_words) == 0 or len(reference_words) == 0:
+        return 0.0
+    indice = 0
+    num = 0
+    for type_word in typed_words:
+        if indice + 1 <= len(reference_words):
+            if type_word == reference_words[indice]:
+                num += 1
+        indice += 1
+    return num / len(typed_words) * 100
     # END PROBLEM 3
 
 
@@ -97,7 +119,7 @@ def wpm(typed, elapsed):
     """
     assert elapsed > 0, 'Elapsed time must be positive'
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    return len(typed) / 5 * (60 / elapsed)
     # END PROBLEM 4
 
 
@@ -124,7 +146,20 @@ def autocorrect(typed_word, valid_words, diff_function, limit):
     'testing'
     """
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    minus = math.inf
+    min_index = 0
+    index = 0
+    for word in valid_words:
+        if minus > diff_function(typed_word, word, limit):
+            minus = diff_function(typed_word, word, limit)
+            min_index = index
+        if typed_word == word:
+            return word
+        index += 1
+    if minus > limit:
+        return typed_word
+    else:
+        return valid_words[min_index]
     # END PROBLEM 5
 
 
@@ -151,7 +186,32 @@ def feline_flips(start, goal, limit):
     5
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    if len(start) <= len(goal):
+        if goal == '' or limit < 0:
+            return 0
+        if start != '':
+            if start[0] != goal[0]:
+                return feline_flips(start[1:], goal[1:], limit - 1) + 1
+            else:
+                return feline_flips(start[1:], goal[1:], limit)
+        else:
+            if '' != goal[0]:
+                return feline_flips(start[1:], goal[1:], limit - 1) + 1
+            else:
+                return feline_flips(start[1:], goal[1:], limit)
+    else:
+        if start == '' or limit < 0:
+            return 0
+        if goal != '':
+            if start[0] != goal[0]:
+                return feline_flips(start[1:], goal[1:], limit - 1) + 1
+            else:
+                return feline_flips(start[1:], goal[1:], limit)
+        else:
+            if '' != start[0]:
+                return feline_flips(start[1:], goal[1:], limit - 1) + 1
+            else:
+                return feline_flips(start[1:], goal[1:], limit)
     # END PROBLEM 6
 
 
@@ -172,24 +232,25 @@ def minimum_mewtations(start, goal, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, 'Remove this line'
-
-    if ______________:  # Fill in the condition
+    if limit < 0:  # Fill in the condition
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        return 0
         # END
 
-    elif ___________:  # Feel free to remove or add additional cases
+    elif len(start) == 0 or len(goal) == 0:  # Feel free to remove or add additional cases
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        return len(start) or len(goal)
         # END
 
     else:
-        add = ...  # Fill in these lines
-        remove = ...
-        substitute = ...
+        if start[0] == goal[0]:
+            return minimum_mewtations(start[1:], goal[1:], limit)
+        add = minimum_mewtations(start, goal[1:], limit - 1)# Fill in these lines
+        remove = minimum_mewtations(start[1:], goal, limit - 1)
+        substitute = minimum_mewtations(start[1:], goal[1:], limit - 1)
+
         # BEGIN
-        "*** YOUR CODE HERE ***"
+        return min(add, remove, substitute) + 1
         # END
 
 
@@ -230,10 +291,18 @@ def report_progress(sofar, prompt, user_id, upload):
     ID: 3 Progress: 0.2
     0.2
     """
-    # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    # BEGIN PROBLEM
+    num = 0
+    index = 0
+    for word in sofar:
+        if word == prompt[index]:
+            num += 1
+        else:
+            break
+        index += 1
+    upload({'id': user_id, 'progress': num / len(prompt)})
+    return num / len(prompt)
     # END PROBLEM 8
-
 
 def time_per_word(words, times_per_player):
     """Given timing data, return a match data abstraction, which contains a
@@ -253,7 +322,19 @@ def time_per_word(words, times_per_player):
     [[6, 3, 6, 2], [10, 6, 1, 2]]
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    delta = []
+    num_player = 0
+    for times in times_per_player:
+        index = 0
+        delta += [[]]
+        for timestamp in times:
+            if index == len(times) - 1:
+                break
+            delta[num_player] += [times[index + 1] - timestamp]
+            index += 1
+        num_player += 1
+
+    return match(words, delta)
     # END PROBLEM 9
 
 
@@ -275,7 +356,18 @@ def fastest_words(match):
     player_indices = range(len(get_times(match)))  # contains an *index* for each player
     word_indices = range(len(get_words(match)))    # contains an *index* for each word
     # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
+    word_list = []
+    skip = []
+    for i in player_indices:
+        word_list += [[]]
+        for j in range(len(get_words(match))):
+            columns = []
+            for k in player_indices:
+                columns += [get_times(match)[k][j]]
+            if min(columns) == get_times(match)[i][j] and not(j in skip):
+                skip += [j]
+                word_list[i] += [word_at(match, j)]
+    return word_list
     # END PROBLEM 10
 
 
@@ -327,7 +419,7 @@ def match_string(match):
     return "match(%s, %s)" % (match[0], match[1])
 
 
-enable_multiplayer = False  # Change to True when you're ready to race.
+enable_multiplayer = True  # Change to True when you're ready to race.
 
 ##########################
 # Command Line Interface #
