@@ -1,7 +1,7 @@
 # CS61A-2021Fall
 + Hogs
-## ALL scored questions
+*ALL scored questions*
 + Cats
-## ALL scored questions
+*ALL scored questions*
 + Ants
-## All questions, include extra and optional
+*All questions, include extra and optional*
