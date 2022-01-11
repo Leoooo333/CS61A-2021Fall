@@ -6,7 +6,7 @@
 
 ## Installation  
 
-Just clone it!
+Just ***clone*** it!
 
 ## GUI  
 
