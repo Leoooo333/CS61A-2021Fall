@@ -19,7 +19,7 @@ Just ***clone*** it!
   -----------------------------------------------  
   
 
-  **1. [Hogs](https://inst.eecs.berkeley.edu/~cs61a/fa21/proj/hog/#introduction)**  
+  **1. [Hogs](https://inst.eecs.berkeley.edu/~cs61a/fa21/proj/hog/#introduction)** 🦔
   
   ![hogs pic](https://i.ibb.co/h93vCDh/hogs.png)  
    
@@ -33,7 +33,7 @@ Just ***clone*** it!
   
   
  ------------------------------------------------
-  **2. [Cats](https://inst.eecs.berkeley.edu/~cs61a/fa21/proj/cats/)**  
+  **2. [Cats](https://inst.eecs.berkeley.edu/~cs61a/fa21/proj/cats/)**  🐱
   
   ![cats pic](https://i.ibb.co/fvYxQRG/cats.png)  
   
@@ -49,7 +49,7 @@ Just ***clone*** it!
   
   ----------------------------------------------
 
-  **3. [Ants](https://inst.eecs.berkeley.edu/~cs61a/fa21/proj/ants/)**  
+  **3. [Ants](https://inst.eecs.berkeley.edu/~cs61a/fa21/proj/ants/)**  🐜
   
   ![ants pic](https://i.ibb.co/pxsPW0n/ants.png)  
   
