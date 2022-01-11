@@ -20,6 +20,7 @@ Just clone it!
   + [Hogs](https://inst.eecs.berkeley.edu/~cs61a/fa21/proj/hog/#introduction)  
 
   >    cmd:`python3 hog_gui.py` OR `python hog_gui.py`  
+  
   ![hogs GIf](https://i.ibb.co/Brj0k8r/hogs.gif)
 
   + [Cats](https://inst.eecs.berkeley.edu/~cs61a/fa21/proj/cats/)  
